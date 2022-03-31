@@ -1,25 +1,40 @@
-version: 3.0.{build}
-branches:
-  only:
-  - master
-  - /release\/.*/
+# based on https://github.com/GoogleCloudPlatform/google-cloud-java/blob/master/appveyor.yml
+
+# build version
+version: '{build}'
+
+# Do not build on tags
 skip_tags: true
-cache:
-- C:\Users\appveyor\.gradle\wrapper -> gradle\wrapper\gradle-wrapper.properties
-- C:\Users\appveyor\.gradle\caches
-init:
-- path C:\Miniconda-x64;C:\Miniconda-x64\Scripts;%PATH%
+
+# enviroment settings
+environment:
+  matrix:
+    - JAVA_HOME: C:\Program Files\Java\jdk1.6.0
+      M2_HOME: C:\bin\apache-maven-3.2.5
+    - JAVA_HOME: C:\Program Files\Java\jdk1.7.0
+      MAVEN_OPTS: -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+
+matrix:
+  allow_failures:
+    - JAVA_HOME: C:\Program Files\Java\jdk1.6.0
+    - JAVA_HOME: C:\Program Files\Java\jdk1.7.0
+
+# install required tools (maven, secure-file, encrypted files)
 install:
-- set JAVA_HOME=C:\Program Files\Java\jdk1.8.0
-- copy etc\gradle-ci.properties gradle.properties
-- gradlew.bat ciPrep
+  - cmd: if not exist "C:\bin\apache-maven-3.2.5\bin\*.*" cinst maven --version 3.2.5 --allow-empty-checksums
+  - cmd: echo %JAVA_HOME%
+  - cmd: echo %M2_HOME%
+
+# build and install artifacts
 build_script:
-- gradlew.bat ciBuild --parallel --scan
+  - '"%M2_HOME%\bin\mvn" clean install -DskipTests'
+
+# verify artifacts
 test_script:
-- gradlew.bat check -Pjavadoc.skip=true --scan
-deploy: off
-notifications:
-  - provider: Webhook
-    url: https://webhooks.gitter.im/e/970c0931b7e94f012944
-    on_build_success: true
-    on_build_failure: true
+  - '"%M2_HOME%\bin\mvn" test'
+
+# preserve dependencies between builds
+cache:
+  - C:\Users\appveyor\.m2
+  - C:\bin\apache-maven-3.2.5

