@@ -1,50 +1,70 @@
-# DigitalOceanApp 
+# JRuby-OpenSSL
 
-[![Build Status](https://travis-ci.org/coding-blocks/DigitalOceanApp.svg?branch=master)](https://travis-ci.org/coding-blocks/DigitalOceanApp)
-[![CircleCI](https://circleci.com/gh/coding-blocks/DigitalOceanApp.svg?style=shield)](https://circleci.com/gh/coding-blocks/DigitalOceanApp)
-[![codecov](https://codecov.io/gh/coding-blocks/DigitalOceanApp/branch/master/graph/badge.svg)](https://codecov.io/gh/coding-blocks/DigitalOceanApp)
-[![codebeat badge](https://codebeat.co/badges/39a67587-5c32-416f-8166-3a5eb43335af)](https://codebeat.co/projects/github-com-coding-blocks-digitaloceanapp-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ab89062fe8b3484485edd8babd04696a)](https://www.codacy.com/app/championswimmer/DigitalOceanApp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coding-blocks/DigitalOceanApp&amp;utm_campaign=Badge_Grade)
-[![Code Climate](https://codeclimate.com/github/coding-blocks/DigitalOceanApp/badges/gpa.svg)](https://codeclimate.com/github/coding-blocks/DigitalOceanApp)
+[JRuby-OpenSSL](https://github.com/jruby/jruby-openssl) is an add-on gem for
+[JRuby](http://jruby.org) that emulates the Ruby OpenSSL native library.
 
-<a href='https://play.google.com/store/apps/details?id=in.tosc.digitaloceanapp&hl=en&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img height=80 alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+Under the hood uses the [Bouncy Castle Crypto APIs](http://www.bouncycastle.org/).
 
-[Unofficial] Android App and Android Library for accessing the DigitalOcean API.
-Originally made as a part of DigitalOcean CloudHackathon.
+Each jruby-openssl gem release includes a certain version, usually the latest available, 
+of the library (namely BC Provider and PKIX/CMS/EAC/PKCS/OCSP/TSP/OPENSSL jars).
 
-The library provides easy to use Java methods to make API calls to DigitalOcean.
+Please report bugs and incompatibilities (preferably with test-cases) to either
+the JRuby [mailing list][1] or the [bug tracker][2].
 
-The Android App lets people sign in with their Digital Ocean account. 
-Once signed in, you can see your droplets, and their status. 
-It has features such as - 
- - powering off / rebooting your droplet
- - turning backups on/off
- - taking snapshot of droplet
- - resizing droplet
- - creating a droplet
+## Compatibility
 
- ## Preview
 
- ![preview](docs/preview2.gif)
+| JRuby-OpenSSL | JRuby compat  | JVM compat | supported BC |
+| ------------- |:-------------:| ----------:| ------------:|
+|         0.9.6 |   1.6.8-9.0.2 |  Java 6-8  |    1.47-1.50 |
+|        0.9.12 |   1.6.8-9.0.5 |  Java 6-8  |    1.47-1.52 |
+|        0.9.13 |   1.6.8-9.1.2 |  Java 6-8  |    1.49-1.52 |
+|        0.9.14 |   1.6.8-9.1.5 |  Java 6-8  |    1.49-1.54 |
+|        0.9.17 |   1.6.8-9.1.5 |  Java 6-8  |    1.50-1.54 |
+|      ~>0.9.18 |   1.6.8-9.1.x |  Java 6-8  |    1.50-1.55 |
+|        0.10.0 |  1.7.20-9.2.x |  Java 7-10 |    1.55-1.59 |
+|        0.10.3 |  1.7.20-9.2.x |  Java 7-11 |    1.56-1.62 |
+
+NOTE: backwards JRuby compatibility was not handled for versions <= **0.9.6** 
+
+## Security
+
+JRuby-OpenSSL is an essential part of [JRuby](http://jruby.org), please report security 
+vulnerabilities to `security@jruby.org` as detailed on JRuby's [security page](http://jruby.org/security).
  
- ### Automating Publishing to the Play Store
- 
-- The first APK or App Bundle needs to be uploaded via the Google Play Console because registering the app with the Play Store cannot be done using the Play Developer API.
-- To use this plugin, you must create a service account with access to the Play Developer API. Once that's done, you'll need to grant the following permissions to your service account for this plugin to work (go to Settings -> Developer account -> API access -> Service Accounts).
-- Once done download your PKCS12 key or json key somewhere and the location of key in the build.gradle file in the play block
-- Then run one of the following commands:
+Please note that most OpenSSL vulnerabilities do not effect JRuby since its not using 
+any of OpenSSL's C code, only Ruby parts (*.rb) are the same as in MRI's OpenSSL library. 
 
-   | Command | Description |
-   | ------------- | ------------- |
-   | 'publishApkRelease'| Uploads the APK and the summary of recent changes. |
-   | 'publishListingRelease'| Uploads the descriptions and images for the Play Store listing.|
-   | 'publishRelease'| Uploads everything.|
-   | 'bootstrapReleasePlayResources'| Fetch data from the Play Store & bootstrap the required files/folders.|
+## Testing
 
-                                
-You can now type the following gradle commands such as the following:
+[![Build Status][0]](http://travis-ci.org/jruby/jruby-openssl)
 
-bash
-./gradlew publishApkRelease
-                                
+    rake jar:all # creates pom.xml and generates jopenssl.jar under lib
+    mvn test
 
+will run (junit as well as ruby) tests and a some ruby tests against the default
+jruby version. to pick a different JRuby version run
+
+    mvn test -Djruby.versions=9.2.8.0
+
+for running integration-tests the gem will be first installed and then the same
+tests run for each possible bouncy-castle version (see [listing][3]), run with
+
+    mvn verify -P test-9.2.9.0,test-9.1.17.0
+
+or pick a bouncy-castle version
+
+    mvn verify -P test-9.2.9.0 -Dbc.versions=1.60
+
+NOTE: you can pick any jruby version which is on [central][4] or on [ci.jruby][5]
+
+## License
+
+(c) 2009-2020 JRuby distributed under EPL 1.0/GPL 2.0/LGPL 2.1
+
+[0]: https://secure.travis-ci.org/jruby/jruby-openssl.svg
+[1]: http://xircles.codehaus.org/projects/jruby/lists
+[2]: https://github.com/jruby/jruby/issues
+[3]: https://github.com/jruby/jruby-openssl/tree/master/integration
+[4]: http://central.maven.org/maven2/org/jruby/
+[5]: http://ci.jruby.org/snapshots/maven/org.jruby/
