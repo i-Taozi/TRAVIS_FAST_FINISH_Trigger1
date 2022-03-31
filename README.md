@@ -1,47 +1,28 @@
-# [Atomix][Website]
+# Welcome to highJ #
 
-![Atomix](http://atomix.io/assets/img/logos/atomix-medium.png)
+[![Build Status](https://travis-ci.org/highj/highj.svg?branch=master)](https://travis-ci.org/highj/highj)
 
-## [Website][Website] | [Javadoc][Javadoc] | [Slack][Slack] | [Google Group][Google Group]
+HighJ tries to overcome Java's lack of higher order type polymorphism (a.k.a. "higher kinded types" in Scala), and translates several well known type-classes (including `Applicative`, `Monad` and `Foldable`) and data structures from Haskell to Java.
 
-[![Build Status](https://travis-ci.org/atomix/atomix.svg?branch=master)](https://travis-ci.org/atomix/atomix)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.atomix%3Aatomix-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.atomix%3Aatomix-parent)
-[![Coverage Status](https://coveralls.io/repos/github/atomix/atomix/badge.svg?branch=master)](https://coveralls.io/github/atomix/atomix?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.atomix/atomix/badge.svg?cache=foo)](https://maven-badges.herokuapp.com/maven-central/io.atomix/atomix)
-[![Javadocs](http://www.javadoc.io/badge/io.atomix/atomix.svg)](https://atomix.io/docs/latest/api/)
+The code required to simulate higher order polymorphism could be kindly described as "interesting", but to be honest, it is pretty ugly. Its most surprising feature is that it actually works.
 
-**A reactive Java framework for building fault-tolerant distributed systems**
+This project is just an experiment, it relies heavily on Java 8 features, and is *not yet* intended for production, but we are working on it. A lot of bad things might happen:
+  * Recursion is sometimes hard to avoid, which might lead to `StackOverflowError`s
+  * The code isn't very efficient, there might be excessive object creation going on
+  * Lazy behavior might lead to unexpected results, as beginners often face in Haskell
+  * The HKT mechanism requires casts. Our assumption is that nobody tries to break the mechanism intentionally 
+  * The test coverage and Wiki documentation is not as comprehensive as it should
+  
+Please consult the wiki for a more detailed description.
 
-Please see the [website][Website] for full documentation.
+## Related
 
-Atomix 3.0 is a fully featured framework for building fault-tolerant distributed systems. It provides a set of high-level primitives commonly needed for building scalable and fault-tolerant distributed systems. These primitives include:
-* Cluster management and failure detection
-* Direct and publish-subscribe messaging
-* Distributed coordination primitives built on a novel implementation of the [Raft][Raft] consensus protocol
-* Scalable data primitives built on a multi-primary protocol
-* Synchronous and asynchronous Java APIs
-* Standalone agent
-* REST API
+- [functionaljava](https://github.com/functionaljava/functionaljava)
+- [Cyclops-React](https://github.com/aol/cyclops-react)
+- [Kotlinz](https://github.com/kotlinz/kotlinz)
+- [Scalaz](https://github.com/scalaz/scalaz)
+- [Swiftz](https://github.com/typelift/Swiftz)
 
-## Acknowledgements
+## License
 
-Atomix is developed as part of the [ONOS][ONOS] project at the [Open Networking Foundation][ONF]. Atomix project thanks ONF for its ongoing support!
-
-![ONF](https://3vf60mmveq1g8vzn48q2o71a-wpengine.netdna-ssl.com/wp-content/uploads/2017/06/onf-logo.jpg)
-
-----
-
-YourKit supports open source projects with its full-featured Java Profiler.
-YourKit, LLC is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/)
-and [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/),
-innovative and intelligent tools for profiling Java and .NET applications.
-
-![YourKit](https://www.yourkit.com/images/yklogo.png)
-
-[Website]: https://atomix.io
-[Slack]: https://join.slack.com/t/atomixio/shared_invite/enQtNDgzNjA5MjMyMDUxLTVmMThjZDcxZDE3ZmU4ZGYwZTc2MGJiYjVjMjFkOWMyNmVjYTc5YjExYTZiOWFjODlkYmE2MjNjYzZhNjU2MjY
-[Google Group]: https://groups.google.com/forum/#!forum/atomixio
-[Javadoc]: http://atomix.io/docs/latest/api/
-[Raft]: https://raft.github.io/
-[ONF]: https://www.opennetworking.org/
-[ONOS]: http://onosproject.org/
+See [LICENSE](LICENSE.txt)
