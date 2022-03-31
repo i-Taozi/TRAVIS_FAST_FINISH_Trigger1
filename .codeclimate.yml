@@ -1,0 +1,19 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - java
+  fixme:
+    enabled: true
+  pmd:
+    enabled: true
+    channel: "beta"
+  checkstyle:
+    enabled: true
+    channel: "beta"
+
+ratings:
+  paths:
+    - app/src/main/**
+    - doandroidlib/src/main/**
