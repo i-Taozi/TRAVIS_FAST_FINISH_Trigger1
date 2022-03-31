@@ -1,20 +1,16 @@
-Thank you for taking your time to contribute back to this Open Source project.
+We welcome contributions to LensKit.
 
-## Code style
+If you have a question about how to use LensKit, consider asking it on
+the [mailing list][ml] or [Gitter chat room][chat].
 
-When submitting pull requests and patches, make sure to turn auto formatting and
-style off in your IDE.
+[ml]: http://lenskit.org/connect/
+[chat]: https://gitter.im/lenskit/lenskit
 
-If your pull request includes changes such as Javadoc changes, tab to space conversion
-and similar changes, it makes it much harder to merge your code. Not only due to
-different formatting, but there may be other developers working on the code, or other
-pending pull requests that may conflict with your changes.
+If you have found a bug in LensKit, or would like to request a feature,
+please file an issue on the GitHub issue tracker.
 
-When submitting pull requests, remember that the smaller your change, the simpler
-(and faster) it is to get it merged. And you can submit other changes just for code
-style and formatting.
+If you would like to contribute to LensKit, please submit a pull request.
 
-## Licensing
-
-Your should be able to license your code under the MIT License, or compatible
-license.
+By submitting a pull request via GitHub, you warrant that you
+either own the code or have appropriate authority to submit it, and 
+agree license your changes under the MIT license used by LensKit (see LICENSE.md).
