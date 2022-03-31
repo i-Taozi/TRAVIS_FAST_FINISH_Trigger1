@@ -1,497 +1,494 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
 
-    Copyright 2005-2019 Dozer Project
+      http://www.apache.org/licenses/LICENSE-2.0
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-        <relativePath/>
-    </parent>
-    <groupId>com.github.dozermapper</groupId>
-    <artifactId>dozer-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>6.5.3-SNAPSHOT</version>
-    <name>Dozer :: Parent</name>
-    <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
+  <!-- ====================================================================== -->
+  <!-- P R O J E C T  D E S C R I P T I O N                                   -->
+  <!-- ====================================================================== -->
 
-    <organization>
-        <name>dozer</name>
-        <url>https://github.com/DozerMapper/dozer</url>
-    </organization>
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>52</version>
+  </parent>
 
-    <inceptionYear>2005</inceptionYear>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <artifactId>commons-imaging</artifactId>
+  <name>Apache Commons Imaging</name>
+  <version>1.0-alpha3-SNAPSHOT</version>
 
-    <scm>
-        <connection>scm:git:https//github.com/DozerMapper/dozer</connection>
-        <developerConnection>scm:git:git@github.com:DozerMapper/dozer.git</developerConnection>
-        <url>https://github.com/DozerMapper/Dozer</url>
-        <tag>HEAD</tag>
-    </scm>
+  <!--
+    Keep the description on a single line. Otherwise Maven might generate
+    a corrupted MANIFEST.MF (see https://issues.apache.org/jira/browse/MJAR-4)
+   -->
+  <description>Apache Commons Imaging (previously Sanselan) is a pure-Java image library.</description>
+  <url>https://commons.apache.org/proper/commons-imaging/</url>
 
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/DozerMapper/dozer/issues</url>
-    </issueManagement>
+  <properties>
+    <argLine>-Xmx512m</argLine>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <commons.componentid>imaging</commons.componentid>
+    <commons.module.name>org.apache.commons.imaging</commons.module.name>
+    <commons.release.version>1.0-alpha2</commons.release.version>
+    <commons.jira.id>IMAGING</commons.jira.id>
+    <commons.jira.pid>12313421</commons.jira.pid>
+    <commons.osgi.export>org.apache.commons.imaging.*;version=${project.version};-noimport:=true</commons.osgi.export>
+    <commons.site.path>imaging</commons.site.path>
+    <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-imaging</commons.scmPubUrl>
+    <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
+    <spotbugs.plugin.version>4.5.3.0</spotbugs.plugin.version>
+    <spotbugs.impl.version>4.5.3</spotbugs.impl.version>
 
-    <ciManagement>
-        <system>travis-ci</system>
-        <url>https://travis-ci.org/DozerMapper/dozer</url>
-    </ciManagement>
+    <!-- Commons Release Plugin -->
+    <commons.bc.version>1.0-alpha1</commons.bc.version>
+    <commons.rc.version>RC1</commons.rc.version>
+    <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/imaging</commons.distSvnStagingUrl>
+    <commons.releaseManagerName>Bruno P. Kinoshita</commons.releaseManagerName>
+    <commons.releaseManagerKey>33C6E01240C5468C2B7A556954E2764B48A42DF0</commons.releaseManagerKey>
+    <junit.version>5.8.2</junit.version>
+  </properties>
 
-    <mailingLists>
-        <mailingList>
-            <name>google-groups</name>
-            <subscribe>https://groups.google.com/forum/?fromgroups=#!forum/dozer-mapper</subscribe>
-        </mailingList>
-    </mailingLists>
+  <scm>
+    <connection>scm:git:http://gitbox.apache.org/repos/asf/commons-imaging.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-imaging.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=commons-imaging.git</url>
+    <tag>HEAD</tag>
+  </scm>
 
-    <modules>
-        <module>building-tools</module>
-        <module>bom-dependencies</module>
-        <module>plugins-parent</module>
-        <module>core</module>
-        <module>dozer-integrations</module>
-        <module>tests</module>
-    </modules>
+  <distributionManagement>
+    <site>
+      <id>apache.website</id>
+      <name>Apache Commons Site</name>
+      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-imaging/</url>
+    </site>
+  </distributionManagement>
 
-    <properties>
-        <!-- Project settings -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.java.version>${java.specification.version}</project.java.version>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/IMAGING</url>
+  </issueManagement>
+  <inceptionYear>2007</inceptionYear>
 
-        <!-- License -->
-        <license.failIfMissing>true</license.failIfMissing>
-        <license.failIfUnknown>true</license.failIfUnknown>
+  <build>
+    <defaultGoal>clean verify apache-rat:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/bin.xml</descriptor>
+            <descriptor>src/assembly/src.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.20</version>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java18</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+        <executions>
+          <execution>
+            <id>check-java-api</id>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <archive combine.children="append">
+            <manifestEntries>
+              <Automatic-Module-Name>${commons.module.name}</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <configuration>
+          <ignorePathsToDelete>
+            <ignorePathToDelete>javadocs</ignorePathToDelete>
+          </ignorePathsToDelete>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.plugin.version}</version>
+        <configuration>
+          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>
+          <includeTestSourceDirectory>false</includeTestSourceDirectory>
+          <enableRulesSummary>false</enableRulesSummary>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.impl.version}</version>
+         </dependency>
+        </dependencies>        
+        <configuration>
+          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <configuration>
+            <ignorePathsToDelete>
+              <ignorePathToDelete>javadocs**</ignorePathToDelete>
+            </ignorePathsToDelete>
+          </configuration>
+        </plugin>     
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <excludePackageNames>org.apache.commons.imaging.formats.psd.*:org.apache.commons.imaging.formats.png.*</excludePackageNames>
+            <source>8</source>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <configuration>
+            <excludes>
+              <exclude>src/test/resources/images/**/*</exclude>
+              <exclude>src/test/data/**/*.xpm</exclude>
+              <exclude>src/test/data/**/*.pam</exclude>
+              <exclude>src/test/data/**/*.pbm</exclude>
+              <exclude>src/test/data/**/*.pgm</exclude>
+              <exclude>src/test/data/**/*.ppm</exclude>
+              <exclude>src/test/data/**/*.xbm</exclude>
+              <exclude>src/main/resources/org/apache/commons/imaging/formats/xpm/rgb.txt</exclude>
+              <exclude>.asf.yaml</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
-        <!-- Top level versions; alphabetical order -->
-        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <license-maven-plugin.version>3.0</license-maven-plugin.version>
-        <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-        <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-        <building-tools.version>6.5.2</building-tools.version>
-    </properties>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.plugin.version}</version>
+        <configuration>
+          <configLocation>${basedir}/checkstyle.xml</configLocation>
+          <suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>
+          <includeTestSourceDirectory>false</includeTestSourceDirectory>
+          <enableRulesSummary>false</enableRulesSummary>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" ' -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
+        <configuration>
+          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <version>${commons.changes.version}</version>
+        <configuration>
+          <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <report>jira-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.15.0</version>
+        <configuration>
+          <targetJdk>${maven.compiler.target}</targetJdk>
+          <rulesets>
+            <ruleset>${basedir}/src/conf/pmd-ruleset.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <tagListOptions>
+            <tagClasses>
+              <tagClass>
+                <displayName>Needs Work</displayName>
+                <tags>
+                  <tag>
+                    <matchString>TODO</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>FIXME</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>XXX</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                </tags>
+              </tagClass>
+              <tagClass>
+                <displayName>Noteable Markers</displayName>
+                <tags>
+                  <tag>
+                    <matchString>NOTE</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>NOPMD</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>NOSONAR</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                </tags>
+              </tagClass>
+            </tagClasses>
+          </tagListOptions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/test/data/images/xpm/1/symbolic.xpm</exclude>
+            <exclude>src/test/data/images/xpm/1/Oregon Scientific DS6639 - DSC_0307 - small.xpm</exclude>
+            <exclude>src/test/data/images/pbm/2/5x5-grayscale.pam</exclude>
+            <exclude>src/test/data/images/pbm/2/5x5-bw.pam</exclude>
+            <exclude>src/test/data/images/pbm/1/Oregon Scientific DS6639 - DSC_0307 - small.pgm</exclude>
+            <exclude>src/test/data/images/xbm/1/Oregon Scientific DS6639 - DSC_0307 - small.xbm</exclude>
+            <exclude>src/test/data/images/xbm/1/Oregon Scientific DS6639 - DSC_0307 - small X10.xbm</exclude>
+            <exclude>src/main/resources/org/apache/commons/imaging/formats/xpm/rgb.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <pluginManagement>
-            <plugins>
-                <!-- Alphabetical order -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${maven-enforcer-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>${versions-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.commonjava.maven.plugins</groupId>
-                    <artifactId>directory-maven-plugin</artifactId>
-                    <version>${directory-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.mycila</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>${license-maven-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-maven-plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
+  <profiles>
+    <profile>
+      <id>jdk8-javadoc</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <additionalparam>-Xdoclint:none</additionalparam>
+      </properties>
+    </profile>
+    <profile>
+      <id>setup-checkout</id>
+      <activation>
+        <file>
+          <missing>site-content</missing>
+        </file>
+      </activation>
+      <build>
         <plugins>
-            <!-- Alphabetical order -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>enforce</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>3.3.1</version>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <version>1.8</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.commonjava.maven.plugins</groupId>
-                <artifactId>directory-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>directories</id>
-                        <goals>
-                            <goal>directory-of</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <property>dozer.basedir</property>
-                            <project>
-                                <groupId>com.github.dozermapper</groupId>
-                                <artifactId>dozer-parent</artifactId>
-                            </project>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-checkout</id>
+                <phase>pre-site</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
                 <configuration>
-                    <header>${dozer.basedir}/building-tools/src/main/resources/LICENSE-HEADER.txt</header>
-                    <excludes>
-                        <exclude>.mvn/**</exclude>
-                        <exclude>mvnw</exclude>
-                        <exclude>mvnw.cmd</exclude>
-                        <exclude>**/LICENSE-HEADER.txt</exclude>
-                        <exclude>**/LICENSE</exclude>
-                        <exclude>**/*.asc</exclude>
-                        <exclude>**/*.asc.enc</exclude>
-                        <exclude>**/*.md</exclude>
-                        <exclude>**/*.adoc</exclude>
-                        <exclude>**/*.jpeg</exclude>
-                        <exclude>**/mockito-extensions/**</exclude>
-                    </excludes>
-                    <mapping>
-                        <cfg>SCRIPT_STYLE</cfg>
-                        <index>SCRIPT_STYLE</index>
-                        <factories>SCRIPT_STYLE</factories>
-                        <handlers>SCRIPT_STYLE</handlers>
-                        <java>SLASHSTAR_STYLE</java>
-                        <proto>SLASHSTAR_STYLE</proto>
-                        <schemas>SCRIPT_STYLE</schemas>
-                    </mapping>
+                  <tasks>
+                    <exec executable="svn">
+                      <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
+                    </exec>
+
+                    <exec executable="svn">
+                      <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
+                    </exec>
+
+                    <pathconvert pathsep=" " property="dirs">
+                      <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
+                    </pathconvert>
+                    <exec executable="svn">
+                      <arg line="update --set-depth infinity ${dirs}" />
+                    </exec>
+                  </tasks>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
-    </build>
+      </build>
+    </profile>
+  </profiles>
 
-    <profiles>
-        <profile>
-            <id>release-ossrh</id>
-            <build>
-                <plugins>
-                    <!-- Alphabetical order -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>versions-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+  <!-- ====================================================================== -->
+  <!-- P E O P L E                                                            -->
+  <!-- ====================================================================== -->
 
-    <developers>
-        <developer>
-            <name>Franz Garsombke</name>
-            <id>fgarsombke</id>
-            <email>fgarsombke@yahoo.com</email>
-            <roles>
-                <role>Project Lead/Co-Founder</role>
-            </roles>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <name>Matt Tierney</name>
-            <id>mhtierney</id>
-            <email>mhtierney@comcast.net</email>
-            <timezone>-7</timezone>
-            <roles>
-                <role>Project Lead/Co-Founder</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Dmitry Buzdin</name>
-            <id>buzdin</id>
-            <email>buzdin@gmail.com</email>
-            <timezone>+2</timezone>
-            <roles>
-                <role>Project Lead</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Alan Stewart</name>
-            <id>alankstewart</id>
-            <email>alankstewart@gmail.com</email>
-            <timezone>+10</timezone>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
+  <developers>
+    <developer>
+      <name>Charles M. Chen</name>
+      <id>cmchen</id>
+    </developer>
+    <developer>
+      <name>Philipp Koch</name>
+      <id>pkoch</id>
+    </developer>
+    <developer>
+      <name>Jeremias Maerki</name>
+      <id>jeremias</id>
+    </developer>
+    <developer>
+      <name>Craig Russell</name>
+      <id>clr</id>
+    </developer>
+    <developer>
+      <name>Yoav Shapira</name>
+      <id>yoavs</id>
+    </developer>
+    <developer>
+      <name>Carsten Ziegeler</name>
+      <id>cziegeler</id>
+    </developer>
+    <developer>
+      <name>Damjan Jovanovic</name>
+      <id>damjan</id>
+    </developer>
+    <developer>
+      <name>Matt Benson</name>
+      <id>mbenson</id>
+    </developer>
+  </developers>
 
-    <!-- List of contributors is in alphabetical order -->
-    <contributors>
-        <contributor>
-            <name>Alan Stewart</name>
-        </contributor>
-        <contributor>
-            <name>Ben Sullins</name>
-        </contributor>
-        <contributor>
-            <name>Bruno Guedes</name>
-        </contributor>
-        <contributor>
-            <name>Chia-Chou Hung</name>
-        </contributor>
-        <contributor>
-            <name>Christoph Goldner</name>
-        </contributor>
-        <contributor>
-            <name>David Baker</name>
-        </contributor>
-        <contributor>
-            <name>Dmitry Spikhalskiy</name>
-        </contributor>
-        <contributor>
-            <name>Ed Bras</name>
-        </contributor>
-        <contributor>
-            <name>Florian Kammermann</name>
-        </contributor>
-        <contributor>
-            <name>Gerard Toonstra</name>
-        </contributor>
-        <contributor>
-            <name>Hee Tatt Ooi</name>
-        </contributor>
-        <contributor>
-            <name>James Bassett</name>
-        </contributor>
-        <contributor>
-            <name>Joachim Korittky</name>
-        </contributor>
-        <contributor>
-            <name>Kiersztyn Wojtek</name>
-        </contributor>
-        <contributor>
-            <name>Knut-Erik Johnsen</name>
-        </contributor>
-        <contributor>
-            <name>Lenkwe Makhubela</name>
-        </contributor>
-        <contributor>
-            <name>Luke Robinson</name>
-        </contributor>
-        <contributor>
-            <name>Mariusz Pala</name>
-        </contributor>
-        <contributor>
-            <name>Markus Thielen</name>
-        </contributor>
-        <contributor>
-            <name>Matt Benson</name>
-        </contributor>
-        <contributor>
-            <name>Mickael Morier</name>
-        </contributor>
-        <contributor>
-            <name>Nhat Vo</name>
-        </contributor>
-        <contributor>
-            <name>Ozzie Gurkan</name>
-        </contributor>
-        <contributor>
-            <name>Peciuch Dominic</name>
-        </contributor>
-        <contributor>
-            <name>Peter Monks</name>
-        </contributor>
-        <contributor>
-            <name>Piotr Dytkowski</name>
-        </contributor>
-        <contributor>
-            <name>Rob Volden</name>
-        </contributor>
-        <contributor>
-            <name>Rohan Hart</name>
-        </contributor>
-        <contributor>
-            <name>Sachin Katakdound</name>
-        </contributor>
-        <contributor>
-            <name>Soren Chittka</name>
-        </contributor>
-        <contributor>
-            <name>Tim Nee</name>
-        </contributor>
-        <contributor>
-            <name>Tom Rigole</name>
-        </contributor>
-        <contributor>
-            <name>Vadim Shaigorodskiy</name>
-        </contributor>
-        <contributor>
-            <name>Vincent Jassogne</name>
-        </contributor>
-        <contributor>
-            <name>Wing Tung Leung</name>
-        </contributor>
-    </contributors>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>snapshots.sonatype.org</id>
-            <name>Sonatype Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>releases.sonatype.org</id>
-            <name>Sonatype Releases</name>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>snapshots.sonatype.org</id>
-            <name>Sonatype Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>releases.sonatype.org</id>
-            <name>Sonatype Releases</name>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
+  <contributors>
+    <contributor>
+      <name>Adrian Moerchen</name>
+    </contributor>
+    <contributor>
+      <name>Alex Vigdor</name>
+    </contributor>
+    <contributor>
+      <name>Craig Kelly</name>
+    </contributor>
+    <contributor>
+      <name>Gary Lucas</name>
+    </contributor>
+    <contributor>
+      <name>Gavin Shiels</name>
+    </contributor>
+    <contributor>
+      <name>Peter Royal</name>
+    </contributor>
+    <contributor>
+      <name>Piyush Kapoor</name>
+    </contributor>
+    <contributor>
+      <name>Tars Joris</name>
+    </contributor>
+    <contributor>
+      <name>VVD</name>
+    </contributor>
+    <contributor>
+      <name>Wanja Gayk</name>
+    </contributor>
+    <contributor>
+      <name>Arturo Bernal</name>
+    </contributor>
+  </contributors>
 </project>
